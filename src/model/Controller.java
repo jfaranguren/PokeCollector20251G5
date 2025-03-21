@@ -9,6 +9,12 @@ public class Controller {
         testData();
     }
 
+
+    /**
+     * Descripcion: Carga en la coleccion algunas cartas
+     * pre: El arreglo collection debe estar inicializado
+     * pos: El arreglo collection queda con dos cartas cargadas
+     */
     public void testData() {
         collection[0] = new PokemonCard("Pikachu", PokemonType.ELECTRICO, 60, 30);
         collection[1] = new PokemonCard("Charmander", PokemonType.FUEGO, 50, 40);
@@ -28,8 +34,16 @@ public class Controller {
 
     }
 
-
-
+    /**
+     * Descripcion: Guarda una carta en el arreglo collection
+     * pre: El arreglo collection debe estar inicializado
+     * pos: El arreglo collection queda con una nueva carta agregada
+     * @param name String, el nombre de la carta
+     * @param type int, el tipo de la carta
+     * @param healthPoints int, los puntos de vida de la carta
+     * @param attackPower int, los puntos de ataque de la carta
+     * @return boolean, true si lo logra agregar la carta, false en caso contrario (memoria llena)
+     */
     public boolean savePokemonCard(String name, int type, int healthPoints, int attackPower) {
 
         if(type>PokemonType.values().length||type<0){
@@ -103,6 +117,7 @@ public class Controller {
                 collection[index].setHealthPoints(valueToChangeInt);
                 return true;
             case 4:
+                collection[index].setAttackPower(valueToChangeInt);
                 break;
 
         }

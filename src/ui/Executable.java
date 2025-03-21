@@ -13,6 +13,12 @@ public class Executable {
         menu();
     }
 
+    public static void initializer() {
+        input = new Scanner(System.in);
+        control = new Controller();
+
+    }
+
     public static void menu() {
 
         int opt = 0;
@@ -45,12 +51,7 @@ public class Executable {
         } while (opt != 0);
     }
 
-    public static void initializer() {
-        input = new Scanner(System.in);
-        control = new Controller();
-
-    }
-
+    
     public static void registerPokemonCard() {
         input.nextLine();
 
