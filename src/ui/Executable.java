@@ -66,10 +66,18 @@ public class Executable {
         System.out.println("Digite los puntos de vida de la carta");
         int hP = input.nextInt();
 
-        System.out.println("Digite los puntos de ataque de la carta");
+        input.nextLine();
+
+        System.out.println("Digite el nombre del ataque la carta");
+        String attackName = input.nextLine();
+
+        System.out.println("Digite los puntos de ataque del ataque la carta");
         int aP = input.nextInt();
 
-        boolean resultado = control.savePokemonCard(name, type, hP, aP);
+        System.out.println("Digite el tipo del ataque de la carta");
+        int attackType = input.nextInt();
+
+        boolean resultado = control.savePokemonCard(name, type, hP, attackName, aP, attackType);
 
         if (resultado) {
             System.out.println("Carta guardada exitosamente");
@@ -92,7 +100,7 @@ public class Executable {
         String change = ""; // Valor de lo que quiero cambiar
 
         System.out.println(
-                "Que quiere modificar? \n1. Nombre\n2. Tipo\n3. Puntos de vida\n4. Poder de ataque\n0. Volver al menu principal");
+                "Que quiere modificar? \n1. Nombre\n2. Tipo\n3. Puntos de vida\n0. Volver al menu principal");
         option = input.nextInt();
 
         switch (option) {
@@ -106,10 +114,7 @@ public class Executable {
             case 3:
                 System.out.println("Cuales son los nuevos puntos de vida");
                 break;
-            case 4:
-
-                break;
-
+           
             default:
                 System.out.println("Opcion invalida");
                 break;

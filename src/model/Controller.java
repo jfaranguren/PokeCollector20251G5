@@ -9,15 +9,14 @@ public class Controller {
         testData();
     }
 
-
     /**
      * Descripcion: Carga en la coleccion algunas cartas
      * pre: El arreglo collection debe estar inicializado
      * pos: El arreglo collection queda con dos cartas cargadas
      */
     public void testData() {
-        collection[0] = new PokemonCard("Pikachu", PokemonType.ELECTRICO, 60, 30);
-        collection[1] = new PokemonCard("Charmander", PokemonType.FUEGO, 50, 40);
+        collection[0] = new PokemonCard("Pikachu", PokemonType.ELECTRICO, 60, new PokemonAttack("Impactrueno", 50, PokemonType.ELECTRICO));
+        collection[1] = new PokemonCard("Charmander", PokemonType.FUEGO, 50, new PokemonAttack("Ascuas", 30, PokemonType.FUEGO));
     }
 
     public String getPokemonTypeList(){
@@ -44,15 +43,21 @@ public class Controller {
      * @param attackPower int, los puntos de ataque de la carta
      * @return boolean, true si lo logra agregar la carta, false en caso contrario (memoria llena)
      */
-    public boolean savePokemonCard(String name, int type, int healthPoints, int attackPower) {
+    public boolean savePokemonCard(String name, int type, int healthPoints, String attackName, int attackPower, int attackType) {
 
         if(type>PokemonType.values().length||type<0){
             type = 3;
         }
 
+        if(attackType>PokemonType.values().length||attackType<0){
+            attackType = 3;
+        }
+
         PokemonType[] types = PokemonType.values();
-        PokemonType temp = types[type-1];
-        PokemonCard newCard = new PokemonCard(name, temp, healthPoints, attackPower);
+        PokemonType pokemonCardType = types[type-1];
+        PokemonType pokemonAttackType = types[attackType-1];
+
+        PokemonCard newCard = new PokemonCard(name, pokemonCardType, healthPoints, new PokemonAttack(attackName, attackPower, pokemonAttackType));
 
         for (int index = 0; index < collection.length; index++) {
 
@@ -84,7 +89,7 @@ public class Controller {
     public boolean modifyPokemonCard(int index, int fieldToChange, String valueToChange) {
         // Puntos de vida y poder de ataque son int
         int valueToChangeInt = 0;
-        if (fieldToChange==2 || fieldToChange == 3 || fieldToChange == 4) {
+        if (fieldToChange==2 || fieldToChange == 3 ) {
             valueToChangeInt = Integer.parseInt(valueToChange);
         }
 
@@ -116,10 +121,7 @@ public class Controller {
             case 3:
                 collection[index].setHealthPoints(valueToChangeInt);
                 return true;
-            case 4:
-                collection[index].setAttackPower(valueToChangeInt);
-                break;
-
+         
         }
 
         return false;

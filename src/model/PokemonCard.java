@@ -5,13 +5,28 @@ public class PokemonCard {
     private String name;
     private PokemonType type;
     private int healthPoints;
-    private int attackPower;
-
-    public PokemonCard(String name, PokemonType type, int healthPoints, int attackPower){
+    private PokemonAttack[] attacks;
+   
+    public PokemonCard(String name, PokemonType type, int healthPoints, PokemonAttack attack){
         this.name=name;
         this.type=type;
         this.healthPoints=healthPoints;
-        this.attackPower=attackPower;  
+        attacks = new PokemonAttack[2];
+        addAttack(attack); 
+    }
+
+    public boolean addAttack(PokemonAttack newAttack){
+
+        for (int i = 0; i < attacks.length; i++) {
+
+            if(attacks[i]==null){
+                attacks[i]=newAttack;
+                return true;
+            }
+            
+        }
+
+        return false;
     }
 
     //Modificadores - set
@@ -40,13 +55,8 @@ public class PokemonCard {
         return healthPoints;
     }
 
-    public void setAttackPower(int attackPower){
-        this.attackPower=attackPower;
-    }
 
-    public int getAttackPower(){
-        return attackPower;
-    }
 
+   
 
 }
