@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"model","l":"Controller"},{"p":"ui","l":"Executable"},{"p":"model","l":"PokemonCard"},{"p":"model","l":"PokemonType"}];updateSearchResults();
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"model","l":"Controller"},{"p":"ui","l":"Executable"},{"p":"model","l":"PokemonAttack"},{"p":"model","l":"PokemonCard"},{"p":"model","l":"PokemonType"}];updateSearchResults();

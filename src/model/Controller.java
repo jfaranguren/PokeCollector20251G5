@@ -1,11 +1,13 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Controller {
 
-    private PokemonCard[] collection;
+    private ArrayList<PokemonCard> collection;
 
     public Controller() {
-        collection = new PokemonCard[185];
+        collection = new ArrayList<PokemonCard>();
         testData();
     }
 
@@ -15,8 +17,8 @@ public class Controller {
      * pos: El arreglo collection queda con dos cartas cargadas
      */
     public void testData() {
-        collection[0] = new PokemonCard("Pikachu", PokemonType.ELECTRICO, 60, new PokemonAttack("Impactrueno", 50, PokemonType.ELECTRICO));
-        collection[1] = new PokemonCard("Charmander", PokemonType.FUEGO, 50, new PokemonAttack("Ascuas", 30, PokemonType.FUEGO));
+        collection.add(new PokemonCard("Pikachu", PokemonType.ELECTRICO, 60, new PokemonAttack("Impactrueno", 50, PokemonType.ELECTRICO)));
+        collection.add(new PokemonCard("Charmander", PokemonType.FUEGO, 50, new PokemonAttack("Ascuas", 30, PokemonType.FUEGO)));
     }
 
     public String getPokemonTypeList(){
@@ -59,25 +61,18 @@ public class Controller {
 
         PokemonCard newCard = new PokemonCard(name, pokemonCardType, healthPoints, new PokemonAttack(attackName, attackPower, pokemonAttackType));
 
-        for (int index = 0; index < collection.length; index++) {
+        return collection.add(newCard);
 
-            if (collection[index] == null) {
-                collection[index] = newCard;
-                return true;
-            }
-
-        }
-        return false;
     }
 
     public String getPokemonCardList() {
 
         String msg = "\nLas cartas registradas son: ";
 
-        for (int i = 0; i < collection.length; i++) {
+        for (int i = 0; i < collection.size(); i++) {
 
-            if (collection[i] != null) {
-                msg += "\n" + (i + 1) + ". " + collection[i].getName();
+            if (collection.get(i) != null) {
+                msg += "\n" + (i + 1) + ". " + collection.get(i).getName();
             }
         }
 
@@ -95,7 +90,7 @@ public class Controller {
 
         switch (fieldToChange) {
             case 1:
-                collection[index].setName(valueToChange);
+                collection.get(index).setName(valueToChange);
                 return true;
             case 2:
                 PokemonType type = PokemonType.AGUA;
@@ -116,10 +111,10 @@ public class Controller {
                     type = PokemonType.FUEGO;
                     break;
                 }
-                collection[index].setType(type);
+                collection.get(index).setType(type);
                 break; 
             case 3:
-                collection[index].setHealthPoints(valueToChangeInt);
+                collection.get(index).setHealthPoints(valueToChangeInt);
                 return true;
          
         }
