@@ -1,7 +1,6 @@
 package model;
 
-public enum PokemonType {
+public enum PokemonType{
 
-    AGUA, PLANTA, FUEGO, ELECTRICO
-    
+    AGUA, FUEGO, PLANTA, ELECTRICO
 }

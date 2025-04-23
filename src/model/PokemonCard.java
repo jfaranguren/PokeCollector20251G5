@@ -1,62 +1,96 @@
 package model;
 
 public class PokemonCard {
-    
+
     private String name;
-    private PokemonType type;
     private int healthPoints;
+    private PokemonType pokemonType;
     private PokemonAttack[] attacks;
-   
-    public PokemonCard(String name, PokemonType type, int healthPoints, PokemonAttack attack){
+
+    public PokemonCard(String name, int healthPoints, PokemonType pokemonType, PokemonAttack attack){
         this.name=name;
-        this.type=type;
         this.healthPoints=healthPoints;
+        this.pokemonType=pokemonType;
         attacks = new PokemonAttack[2];
-        addAttack(attack); 
+        addAttack(attack);
     }
 
-    public boolean addAttack(PokemonAttack newAttack){
-
-        for (int i = 0; i < attacks.length; i++) {
-
-            if(attacks[i]==null){
-                attacks[i]=newAttack;
-                return true;
-            }
-            
-        }
-
-        return false;
-    }
-
-    //Modificadores - set
-    public void setName(String name){
+    public PokemonCard(String name, int healthPoints, PokemonType pokemonType, PokemonAttack[] attacks){
         this.name=name;
+        this.healthPoints=healthPoints;
+        this.pokemonType=pokemonType;
+        this.attacks = attacks;
     }
 
-    //Analizadores - get
+    public void addAttack(PokemonAttack attack){
+        for (int i = 0; i < attacks.length; i++) {
+            if(attacks[i]==null){
+                attacks[i]=attack;
+                break;
+            }
+        }
+     
+    }
+
     public String getName(){
         return name;
-    } 
-
-    public void setType(PokemonType type){
-        this.type=type;
     }
 
-    public PokemonType getType(){
-        return type;
-    }
-
-    public void setHealthPoints(int healthPoints){
-        this.healthPoints=healthPoints;
+    public void setName(String name){
+        this.name=name;
     }
 
     public int getHealthPoints(){
         return healthPoints;
     }
 
+    public void setHealthPoints(int healthPoints){
+        this.healthPoints=healthPoints;
+    }
+
+    public PokemonType getPokemonType(){
+        return pokemonType;
+    } 
+
+    public void setPokemonType(PokemonType pokemonType){
+        this.pokemonType = pokemonType;
+    }
+    
+    public PokemonAttack[] getAttacks() {
+        return attacks;
+    }
+
+      public String toString(){
+       
+        String msg = name+", "+healthPoints+", "+pokemonType;
+
+        String pkmAttacks = "";
+
+        for (int i = 0; i < attacks.length; i++) {
+
+            if(attacks[i]!=null){
 
 
-   
+                pkmAttacks+="\n\t"+attacks[i].toString();
 
+            }
+            
+        }
+
+        if (pkmAttacks.equals("")) {
+
+            pkmAttacks = "\nNo tiene ataques registrados";
+            
+        }else{
+
+            pkmAttacks = "\n\tAtaques:"+pkmAttacks;
+
+        }
+       
+        return msg+pkmAttacks;
+
+    
+
+
+    }
 }

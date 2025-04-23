@@ -5,42 +5,59 @@ import model.Controller;
 
 public class Executable {
 
-    private static Scanner input;
-    private static Controller control;
+    private Scanner input;
+    private Controller controller; //
 
     public static void main(String[] args) {
+       Executable exe = new Executable();
+       exe.menu();
+    }
+
+    public Executable(){
         initializer();
-        menu();
     }
 
-    public static void initializer() {
+    public void initializer() {
         input = new Scanner(System.in);
-        control = new Controller();
+        controller = new Controller(); //
 
     }
 
-    public static void menu() {
+    public void menu() {
 
-        int opt = 0;
+        int option = 0;
         do {
-
-            System.out.println("Bienvenido a PokeCollector");
+            System.out.println("\nBienvenido a PokeCollector");
             System.out.println("Digite una opcion");
-            System.out.println("1. Registrar carta");
-            System.out.println("2. Mostrar listado de cartas");
-            System.out.println("3. Modificar carta");
-            System.out.println("0. Salir");
-            opt = input.nextInt();
-
-            switch (opt) {
+            System.out.println("1) Registrar carta");
+            System.out.println("2) Consultar coleccion");
+            System.out.println("3) Modificar carta");
+            System.out.println("4) Borrar carta");
+            System.out.println("0) Salir");
+            option = input.nextInt();
+            switch (option) {
                 case 1:
                     registerPokemonCard();
+                   
                     break;
                 case 2:
-                    System.out.println(control.getPokemonCardList());
+                    System.out.println(controller.getCollectionInfo());
+                  
                     break;
                 case 3:
-                    modifyPokemonCard();
+                    System.out.println("Digite una opcion");    
+                    System.out.println("1) Para modificar TODOS los atributos de una carta ");
+                    System.out.println("2) Para modificar ALGUNO de los atributos de la carta");
+                    int modify = input.nextInt();
+                    if(modify==1){
+                        modifyPokemonCard();
+                    }else{
+                        modifyFieldPokemonCard();
+                    }
+                                
+                    break;
+                case 4:
+                    deletePokemonCard();
                     break;
 
                 default:
@@ -48,92 +65,158 @@ public class Executable {
                     break;
             }
 
-        } while (opt != 0);
+            backToMenu();
+
+        } while (option != 0);     
+
     }
 
-    
-    public static void registerPokemonCard() {
+    public void backToMenu(){
+
+        System.out.println("\nDigite 1 para volver al menu principal");
+        int menu = input.nextInt();
+
+        //Limpieza de pantalla
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+
+    }
+
+    public void registerPokemonCard() {
+
         input.nextLine();
 
-        System.out.println("Digite el nombre de la carta");
+        System.out.println("Digite el nombre");
         String name = input.nextLine();
 
-        System.out.println(control.getPokemonTypeList());
+        System.out.println("Digite los puntos de vida");
+        int hp = input.nextInt();
 
-        System.out.println("Digite el tipo de la carta");
+        System.out.println(controller.getPokemonTypeList());
+
+        System.out.println("Digite el tipo del Pokemon");
         int type = input.nextInt();
-
-        System.out.println("Digite los puntos de vida de la carta");
-        int hP = input.nextInt();
 
         input.nextLine();
 
-        System.out.println("Digite el nombre del ataque la carta");
+        System.out.println("Digite el nombre del ataque");
         String attackName = input.nextLine();
 
-        System.out.println("Digite los puntos de ataque del ataque la carta");
-        int aP = input.nextInt();
+        System.out.println("Digite el poder de ataque");
+        int attackPower = input.nextInt();
 
-        System.out.println("Digite el tipo del ataque de la carta");
+        System.out.println(controller.getPokemonTypeList());
+
+        System.out.println("Digite el tipo del ataque");
         int attackType = input.nextInt();
 
-        boolean resultado = control.savePokemonCard(name, type, hP, attackName, aP, attackType);
-
-        if (resultado) {
-            System.out.println("Carta guardada exitosamente");
+        if (controller.savePokemonCard(name, hp, type, attackName, attackPower, attackType)) {
+            System.out.println("Carta registrada exitosamente");
         } else {
-            System.out.println("Error, Memoria llena");
+            System.out.println("Coleccion llena");
         }
 
     }
 
-    public static void modifyPokemonCard() {
+   
 
-        // Mostrar la lista de elementos registrados
-        System.out.println(control.getPokemonCardList());
+    public void modifyPokemonCard(){
 
-        System.out.println("Digite el consecutivo de la carta a modificar");
-        int index = input.nextInt();
+        System.out.println(controller.getCollectionInfo());
+        System.out.println("Digite la posicion de la carta la cual quiere modificar");
+        int position=input.nextInt();
+        if((position>200)||(position<0)){
+            System.out.println("Digite una posicion valida");
+        }else if(controller.verifyCard(position-1)){
+            
+            input.nextLine();
+            System.out.println("Digite el nombre del pokemon: ");
+            String name= input.nextLine();
+    
+            System.out.println("Digite los puntos de vida");
+            int hp=input.nextInt();
+                
+            System.out.println(controller.getPokemonTypeList());
+            System.out.println("Digite el tipo de pokemon: ");
+            int type= input.nextInt();
+    
+            input.nextLine();
 
-        // Preguntar que quiero modificar y capturar informacion
-        int option = 0; // ¿Que quiero cambiar?
-        String change = ""; // Valor de lo que quiero cambiar
+            System.out.println("Digite el nombre del ataque");
+            String attackName = input.nextLine();
+    
+            System.out.println("Digite el poder de ataque");
+            int attackPower = input.nextInt();
 
-        System.out.println(
-                "Que quiere modificar? \n1. Nombre\n2. Tipo\n3. Puntos de vida\n0. Volver al menu principal");
-        option = input.nextInt();
+            System.out.println(controller.getPokemonTypeList());
+    
+            System.out.println("Digite el tipo del ataque");
+            int attackType = input.nextInt();
 
-        switch (option) {
-            case 1:
-                System.out.println("Cual es el nuevo nombre?");
-                break;
-            case 2:
-                 System.out.println("Cual es el nuevo tipo?");
-                 System.out.println(control.getPokemonTypeList());
-                break;
-            case 3:
-                System.out.println("Cuales son los nuevos puntos de vida");
-                break;
-           
-            default:
-                System.out.println("Opcion invalida");
-                break;
+            controller.modifyCard(name, hp, type, attackName, attackPower, attackType, position);
+             
         }
 
-        input.nextLine(); // Limpieza del buffer
-        change = input.nextLine();
+    }
 
-        // Llamar al metodo para cambiar el valor en la memoria
+    public void modifyFieldPokemonCard(){
 
-        boolean result = control.modifyPokemonCard(index - 1, option, change);
+        System.out.println(controller.getCollectionInfo());
+        System.out.println("Digite la posicion de la carta la cual quiere modificar");
+        int position=input.nextInt();
+        if((position>controller.getCollectionSize())||(position<0)){
+            System.out.println("Digite una posicion valida");
+        }else if(controller.verifyCard(position-1)){
 
-        // Mostrar mensaje de confirmacion
+            System.out.println("Digite que quiere modificar \n1. Nombre\n2. Tipo\n3. Puntos de vida");
+            int option = input.nextInt();
+            String data = "";
+            input.nextLine();
 
-        if (result) {
-            System.out.println("Cambio exitoso");
-        } else {
-            System.out.println("Error, el cambio no pudo ser aplicado");
+            switch(option){
+                case 1:
+                
+                System.out.println("Digite el nuevo nombre");
+                break;
+                case 2:
+                System.out.println(controller.getPokemonTypeList());
+                System.out.println("Digite el nuevo tipo");
+                break;
+                case 3:
+                System.out.println("Digite los nuevos puntos de vida");
+                break;
+            }
+            data = input.nextLine();
+
+            boolean result = controller.modifyFieldPokemonCard(position-1,option,data);
+
+            if(result){
+                System.out.println("Campo actualizado exitosamente");
+            }else{
+
+                System.out.println("Error, no fue posible actualizar el campo");
+            }
         }
+
+    }
+
+    public void deletePokemonCard(){
+
+        System.out.println(controller.getCollectionInfo());
+        System.out.println("Digite la posicion de la carta la cual quiere borrar");
+        int position=input.nextInt();
+        if((position>controller.getCollectionSize())||(position<0)){
+            System.out.println("Digite una posicion valida");
+        }else if(controller.verifyCard(position-1)){
+
+            if (controller.deletePokemonCard(position-1)!=null){
+                System.out.println("Carta borrada exitosamente");
+            }else{
+                System.out.println("La Carta no pudo ser borrada");
+            }
+
+        }
+
 
     }
 

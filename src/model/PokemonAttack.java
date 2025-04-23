@@ -5,7 +5,7 @@ public class PokemonAttack {
     private String name;
     private int attackPower;
     private PokemonType type;
-
+   
     public PokemonAttack(String name, int attackPower, PokemonType type) {
         this.name = name;
         this.attackPower = attackPower;
@@ -36,6 +36,16 @@ public class PokemonAttack {
         this.type = type;
     }
 
+    @Override
+    public String toString() {
+        return name + ", Power: " + attackPower + ", Type: " + type;
+    }
+
     
+
+    
+
+    
+
     
 }
