@@ -19,6 +19,9 @@ public class Controller {
 
         saveCard("Leafeon", 80, 3, "Hoja afilada", 60, 3);
         saveCard("Jolteon", 80, 4, "Attacktrueno", 40, 4);
+        saveCard("Enfermera Joy", "Sana a un Pokemon 30 HP");
+        saveCard("Energia Basica Planta", 3);
+
 
     }
 
@@ -69,6 +72,12 @@ public class Controller {
         return collection.add(newCard);
     }
 
+    /**
+     * 
+     * @param name
+     * @param pokemonTypeSelection
+     * @return
+     */
     public boolean saveCard(String name, int pokemonTypeSelection){
 
         PokemonType pokemonType = calculatePokemonType(pokemonTypeSelection);
@@ -79,6 +88,12 @@ public class Controller {
 
     }
 
+    /**
+     * 
+     * @param name
+     * @param effect
+     * @return
+     */
     public boolean saveCard(String name, String effect){
 
         TrainerCard newCard = new TrainerCard(name, effect);
@@ -86,13 +101,6 @@ public class Controller {
         return collection.add(newCard);
 
     }
-
-
-
-
-
-
-
 
     /**
      * Descripcion:
@@ -174,5 +182,39 @@ public class Controller {
         return collection.remove(position);
 
     }
+
+    public String getCollectionStatitics(){
+
+        String msg = "La coleccion tiene la siguiente composicion:\n";
+        int pkmnCount = 0, trainerCount = 0, energyCount = 0;
+
+        for (Card card : collection) {
+
+            if(card instanceof PokemonCard){
+                pkmnCount++;
+            }
+            if(card instanceof EnergyCard){
+                energyCount++;
+            }
+            if(card instanceof TrainerCard){
+                trainerCount++;
+            }
+            
+        }
+
+        msg+="\nHay "+pkmnCount+" PokemonCard\n";
+        msg+="Hay "+trainerCount+" TrainerCard\n";
+        msg+="Hay "+energyCount+" EnergyCard\n";
+
+        return msg;
+    } 
+
+    
+
+
+
+
+
+
 
 }
