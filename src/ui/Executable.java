@@ -57,7 +57,7 @@ public class Executable {
                                 
                     break;
                 case 4:
-                    deletePokemonCard();
+                    deleteCard();
                     break;
 
                 default:
@@ -110,7 +110,7 @@ public class Executable {
         System.out.println("Digite el tipo del ataque");
         int attackType = input.nextInt();
 
-        if (controller.savePokemonCard(name, hp, type, attackName, attackPower, attackType)) {
+        if (controller.saveCard(name, hp, type, attackName, attackPower, attackType)) {
             System.out.println("Carta registrada exitosamente");
         } else {
             System.out.println("Coleccion llena");
@@ -200,7 +200,7 @@ public class Executable {
 
     }
 
-    public void deletePokemonCard(){
+    public void deleteCard(){
 
         System.out.println(controller.getCollectionInfo());
         System.out.println("Digite la posicion de la carta la cual quiere borrar");
@@ -209,7 +209,7 @@ public class Executable {
             System.out.println("Digite una posicion valida");
         }else if(controller.verifyCard(position-1)){
 
-            if (controller.deletePokemonCard(position-1)!=null){
+            if (controller.deleteCard(position-1)!=null){
                 System.out.println("Carta borrada exitosamente");
             }else{
                 System.out.println("La Carta no pudo ser borrada");
