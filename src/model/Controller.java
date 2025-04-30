@@ -209,6 +209,20 @@ public class Controller {
         return msg;
     } 
 
+
+    public String getCardInfo(int position){
+
+        if(position>=0&&position<collection.size()){
+
+            return collection.get(position).toString();
+
+        }
+
+        return null;
+
+
+    }
+
     
 
 

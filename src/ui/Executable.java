@@ -34,6 +34,7 @@ public class Executable {
             System.out.println("3) Modificar carta");
             System.out.println("4) Borrar carta");
             System.out.println("5) Consultar estadisticas de la coleccion");
+            System.out.println("6) Consultar informacion de una carta");
             System.out.println("0) Salir");
             option = input.nextInt();
             switch (option) {
@@ -62,6 +63,9 @@ public class Executable {
                     break;
                 case 5:
                     System.out.println(controller.getCollectionStatitics());
+                    break;
+                case 6:
+                    showCardInfo();
                     break;
 
                 default:
@@ -217,6 +221,23 @@ public class Executable {
                 System.out.println("La Carta no pudo ser borrada");
             }
 
+        }
+
+    }
+
+    public void showCardInfo() {
+
+        System.out.println(controller.getCollectionInfo());
+        System.out.println("Digite la posicion de la carta la cual quiere consultar");
+        int position = input.nextInt();
+
+        String result = controller.getCardInfo(position - 1);
+
+        if (result != null) {
+            System.out.println("\nInformacion de la carta:\n" + result);
+        } else {
+
+            System.out.println("Error, posicion invalida");
         }
 
     }
