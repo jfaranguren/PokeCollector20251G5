@@ -1,6 +1,8 @@
 package model;
 
-public class PokemonAttack {
+import java.io.Serializable;
+
+public class PokemonAttack implements Serializable{
 
     private String name;
     private int attackPower;

@@ -5,7 +5,7 @@ public class EnergyCard extends Card{
     private PokemonType type;
 
     public EnergyCard(String name, PokemonType type) {
-        super(name);
+        super(name); //Card(name)
         this.type = type;
     }
 
@@ -23,12 +23,15 @@ public class EnergyCard extends Card{
     }
 
     @Override
-    public double calculatePrice(){
-
+    public double calculatePrice() {
+        
         return 500;
-
     }
+
     
+
+    
+
     
     
 }

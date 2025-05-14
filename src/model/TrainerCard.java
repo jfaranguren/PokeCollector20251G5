@@ -1,36 +1,33 @@
 package model;
 
 public class TrainerCard extends Card {
+    
+    private String description;
 
-    private String effect;
-
-    public TrainerCard(String name, String effect) {
+    public TrainerCard(String name, String description) {
         super(name);
-        this.effect = effect;
+        this.description = description;
     }
 
-    public String getEffect() {
-        return effect;
+    public String getDescription() {
+        return description;
     }
 
-    public void setEffect(String effect) {
-        this.effect = effect;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override
     public String toString() {
-        return "TrainerCard [effect=" + effect + ", getName()=" + getName() + "]";
+        return "TrainerCard [description=" + description + ", getName()=" + getName() + "]";
     }
 
     @Override
     public double calculatePrice(){
 
-        return  20*effect.length();
-
+        return 20*description.length();
     }
-    
 
     
 
-    
 }
