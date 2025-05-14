@@ -1,6 +1,6 @@
 package model;
 
-public abstract class Card {
+public abstract class Card implements Priceable{
 
     private String name;
 

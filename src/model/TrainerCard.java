@@ -22,6 +22,12 @@ public class TrainerCard extends Card {
         return "TrainerCard [effect=" + effect + ", getName()=" + getName() + "]";
     }
 
+    @Override
+    public double calculatePrice(){
+
+        return  20*effect.length();
+
+    }
     
 
     

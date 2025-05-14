@@ -4,9 +4,13 @@ import java.util.ArrayList; //Cambios
 
 public class Controller {
 
+    private ArrayList<Priceable> bigCollection;
+    private ArrayList<Accesory> aCollection;
     private ArrayList<Card> collection; // Cambios
 
     public Controller() {
+        bigCollection = new ArrayList<Priceable>();
+        aCollection = new ArrayList<Accesory>();
         collection = new ArrayList<Card>(); // Cambios
         testData();
     }
@@ -21,7 +25,6 @@ public class Controller {
         saveCard("Jolteon", 80, 4, "Attacktrueno", 40, 4);
         saveCard("Enfermera Joy", "Sana a un Pokemon 30 HP");
         saveCard("Energia Basica Planta", 3);
-
 
     }
 
@@ -72,13 +75,24 @@ public class Controller {
         return collection.add(newCard);
     }
 
+    public boolean saveCardInBigCollection(String name, int healthPoints, int pokemonTypeSelection, String attackName,
+            int attackPower, int attackType) {
+
+        PokemonType pokemonType = calculatePokemonType(pokemonTypeSelection);
+
+        PokemonCard newCard = new PokemonCard(name, healthPoints, pokemonType,
+                new PokemonAttack(attackName, attackPower, calculatePokemonType(attackType)));
+
+        return bigCollection.add(newCard);
+    }
+
     /**
      * 
      * @param name
      * @param pokemonTypeSelection
      * @return
      */
-    public boolean saveCard(String name, int pokemonTypeSelection){
+    public boolean saveCard(String name, int pokemonTypeSelection) {
 
         PokemonType pokemonType = calculatePokemonType(pokemonTypeSelection);
 
@@ -94,7 +108,7 @@ public class Controller {
      * @param effect
      * @return
      */
-    public boolean saveCard(String name, String effect){
+    public boolean saveCard(String name, String effect) {
 
         TrainerCard newCard = new TrainerCard(name, effect);
 
@@ -113,7 +127,7 @@ public class Controller {
 
         for (int i = 0; i < collection.size(); i++) {
 
-            list += (i + 1) + "|" + collection.get(i).toString() + "\n"; // collection[i] es un objeto PokemonCard
+            list += (i + 1) + "|" + collection.get(i).getName() + "\n"; // collection[i] es un objeto PokemonCard
 
         }
         return list;
@@ -162,10 +176,39 @@ public class Controller {
                     collection.get(position).setName(data);
                     return true;
                 case 2:
-                    ((PokemonCard)collection.get(position)).setPokemonType(calculatePokemonType(dataInteger));
+                    ((PokemonCard) collection.get(position)).setPokemonType(calculatePokemonType(dataInteger));
                     return true;
                 case 3:
-                    ((PokemonCard)collection.get(position)).setHealthPoints(dataInteger);
+                    ((PokemonCard) collection.get(position)).setHealthPoints(dataInteger);
+                    return true;
+                default:
+                    break;
+            }
+
+        }
+
+        return false;
+
+    }
+
+    public boolean modifyFieldPokemonCardInBigCollection(int position, int option, String data) {
+        int dataInteger = 0;
+
+        if (option != 1) {
+            dataInteger = Integer.parseInt(data);
+        }
+
+        if (bigCollection.get(position) instanceof PokemonCard) {
+
+            switch (option) {
+                case 1:
+                ((Card)bigCollection.get(position)).setName(data);
+                    return true;
+                case 2:
+                    ((PokemonCard) bigCollection.get(position)).setPokemonType(calculatePokemonType(dataInteger));
+                    return true;
+                case 3:
+                    ((PokemonCard) bigCollection.get(position)).setHealthPoints(dataInteger);
                     return true;
                 default:
                     break;
@@ -183,36 +226,35 @@ public class Controller {
 
     }
 
-    public String getCollectionStatitics(){
+    public String getCollectionStatitics() {
 
         String msg = "La coleccion tiene la siguiente composicion:\n";
         int pkmnCount = 0, trainerCount = 0, energyCount = 0;
 
         for (Card card : collection) {
 
-            if(card instanceof PokemonCard){
+            if (card instanceof PokemonCard) {
                 pkmnCount++;
             }
-            if(card instanceof EnergyCard){
+            if (card instanceof EnergyCard) {
                 energyCount++;
             }
-            if(card instanceof TrainerCard){
+            if (card instanceof TrainerCard) {
                 trainerCount++;
             }
-            
+
         }
 
-        msg+="\nHay "+pkmnCount+" PokemonCard\n";
-        msg+="Hay "+trainerCount+" TrainerCard\n";
-        msg+="Hay "+energyCount+" EnergyCard\n";
+        msg += "\nHay " + pkmnCount + " PokemonCard\n";
+        msg += "Hay " + trainerCount + " TrainerCard\n";
+        msg += "Hay " + energyCount + " EnergyCard\n";
 
         return msg;
-    } 
+    }
 
+    public String getCardInfo(int position) {
 
-    public String getCardInfo(int position){
-
-        if(position>=0&&position<collection.size()){
+        if (position >= 0 && position < collection.size()) {
 
             return collection.get(position).toString();
 
@@ -220,15 +262,36 @@ public class Controller {
 
         return null;
 
+    }
+
+    public double getObjectPrice(int position) {
+
+        if (position >= 0 && position < bigCollection.size()) {
+
+            return bigCollection.get(position).calculatePrice();
+
+        }
+
+        return 0.0;
 
     }
 
-    
+    public double getObjectPricePegadas(int position) {
+
+        ArrayList<Priceable> joinedArrayList = new ArrayList<Priceable>();
+
+        joinedArrayList.addAll(collection);
+        joinedArrayList.addAll(aCollection);
 
 
+        if (position >= 0 && position < joinedArrayList.size()) {
 
+            return bigCollection.get(position).calculatePrice();
 
+        }
 
+        return 0.0;
 
+    }
 
 }

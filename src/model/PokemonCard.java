@@ -96,4 +96,17 @@ public class PokemonCard extends Card {
         return false;
     }
 
+    @Override
+    public double calculatePrice(){
+
+        double sumAttacks = 0;
+        for (PokemonAttack pokemonAttack : attacks) {     
+            if(pokemonAttack!=null){
+            sumAttacks+=pokemonAttack.getAttackPower();
+            }
+        }
+        return sumAttacks*1000;
+
+    }
+
 }
